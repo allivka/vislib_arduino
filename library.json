@@ -1,6 +1,6 @@
 {
   "name": "vislib_arduino",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Some implementations of vislib functionality for arduino",
   "keywords": "vislib, arduino",
   "repository":

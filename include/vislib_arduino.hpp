@@ -3,19 +3,32 @@
 #include <vislib.hpp>
 #include <Arduino.h>
 
+#define DEFAULT_INTERRUPT_MODE RISING
+
 namespace vislib::binds::arduino {
 
 using port_t = uint8_t;
 
-bool InterruptPortChecker(port_t port) {
-    return digitalRead(port);
-}
+using InterruptTable = CallbackTable<port_t>;
 
-util::Error InterruptPortInitializer(port_t port) {
+CallbackPortInitializer<port_t> interruptPortInitializer = [](const port_t& port) -> util::Error {
     pinMode(port, INPUT);
     return {};
-}
+};
 
-using CallbackTable = CallbackTable<port_t>;
+CallbackInitializer<port_t> interruptInitializer = [](const CallbackBase<port_t>&) -> util::Error {
+    return {};
+};
+
+// CallbackAttacher<port_t> interruptAttacher = [](const CallbackBase<port_t>& callback) -> util::Error {
+//     CallbackFunctor functor = callback;
+//
+//     attachInterrupt(digitalPinToInterrupt(callback.port), [=]() -> void {functor();}, DEFAULT_INTERRUPT_MODE);
+//     return {};
+// };
+
+CallbackChecker<port_t> interruptChecker = [](const CallbackBase<port_t>& callback) -> bool {
+    return digitalRead(callback.port) == HIGH;
+};
 
 };
