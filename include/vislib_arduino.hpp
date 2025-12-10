@@ -7,6 +7,15 @@
 
 namespace vislib::binds::arduino {
 
+
+struct MillisGetter_t {
+    util::Result<size_t> operator()() const noexcept {
+        return static_cast<size_t>(millis());
+    }
+};
+
+auto millisGetter = util::TimeGetter<size_t>(MillisGetter_t{});
+
 using port_t = uint8_t;
 
 using InterruptTable = CallbackTable<port_t>;
