@@ -7,14 +7,15 @@
 
 namespace vislib::binds::arduino {
 
+using time_t = size_t;
 
 struct MillisGetter_t {
-    util::Result<size_t> operator()() const noexcept {
-        return static_cast<size_t>(millis());
+    util::Result<time_t> operator()() const noexcept {
+        return static_cast<time_t>(millis());
     }
 };
 
-auto millisGetter = util::TimeGetter<size_t>(MillisGetter_t{});
+auto millisGetter = util::TimeGetter<time_t>(MillisGetter_t{});
 
 using port_t = uint8_t;
 
