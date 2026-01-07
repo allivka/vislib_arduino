@@ -1,6 +1,6 @@
 {
   "name": "vislib_arduino",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Some implementations of vislib functionality for arduino",
   "keywords": "vislib, arduino",
   "repository":
@@ -20,7 +20,7 @@
     "includeDir": "include"
   },
   "dependencies": {
-    "alivka/vislib": "*"
+    "alivka/vislib_robo": "*"
   },
   "frameworks": "Arduino",
   "platforms": "atmelavr"

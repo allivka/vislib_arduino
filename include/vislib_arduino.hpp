@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vislib.hpp>
+#include <vislib_robo.hpp>
 #include <Arduino.h>
 
 #define DEFAULT_INTERRUPT_MODE RISING
@@ -9,23 +9,23 @@ namespace vislib::binds::arduino {
 
 
 struct MillisGetter_t {
-    util::Result<size_t> operator()() const noexcept {
+    core::Result<size_t> operator()() const noexcept {
         return static_cast<size_t>(millis());
     }
 };
 
-auto millisGetter = util::TimeGetter<size_t>(MillisGetter_t{});
+auto millisGetter = core::TimeGetter<size_t>(MillisGetter_t{});
 
 using port_t = uint8_t;
 
 using InterruptTable = CallbackTable<port_t>;
 
-CallbackPortInitializer<port_t> interruptPortInitializer = [](const port_t& port) -> util::Error {
+CallbackPortInitializer<port_t> interruptPortInitializer = [](const port_t& port) -> core::Error {
     pinMode(port, INPUT);
     return {};
 };
 
-CallbackInitializer<port_t> interruptInitializer = [](const CallbackBase<port_t>&) -> util::Error {
+CallbackInitializer<port_t> interruptInitializer = [](const CallbackBase<port_t>&) -> core::Error {
     return {};
 };
 
